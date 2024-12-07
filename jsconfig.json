@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "react/*": [
+        "src/react/*"
+      ],
+      "shared/*": [
+        "src/shared/*"
+      ],
+    },
+  }
+}
