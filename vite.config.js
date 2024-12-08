@@ -8,6 +8,8 @@ export default defineConfig({
     alias: {
       react: path.posix.resolve('src/react'),
       shared: path.posix.resolve('src/shared'),
+      'react-dom': path.posix.resolve('src/react-dom'),
+      'react-reconciler': path.posix.resolve('src/react-reconciler'),
     },
   },
   optimizeDeps: {

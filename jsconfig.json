@@ -8,6 +8,12 @@
       "shared/*": [
         "src/shared/*"
       ],
+      "react-dom/*": [
+        "src/react-dom/*"
+      ],
+      "react-reconciler/*": [
+        "src/react-reconciler/*"
+      ],
     },
   }
 }

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>requestIdleCallback</title>
+</head>
+
+<body>
+  <script>
+    function sleep(d) {
+      for (let t = Date.now(); Date.now() - t <= d;) {
+        // 模拟耗时操作
+      }
+    };
+
+    const workList = [
+      () => {
+        console.log('work1');
+        sleep(10);
+        console.log('work1 end')
+      },
+      () => {
+        console.log('work2');
+        sleep(20);
+        console.log('work2 end')
+      },
+      () => {
+        console.log('work3');
+        sleep(30);
+        console.log('work3 end')
+      },
+    ];
+
+    requestIdleCallback(workLoop); // 告诉浏览器，当前帧空闲了，去执行 workLoop 函数
+
+    function workLoop(deadline) {
+      console.log('当前祯的剩余时间', deadline.timeRemaining());
+
+      // 模拟执行任务, 当剩余时间小于 1 毫秒时，停止执行任务
+      while (deadline.timeRemaining() > 1 && workList.length) {
+        preformUnitOfWork(workList.shift());
+      }
+
+      // 如果还有任务未执行，继续执行 workLoop 函数
+      if (workList.length) {
+        console.log(`只剩下 ${deadline.timeRemaining()} 毫秒，时间不足以执行所有任务，请求下一次空闲回调`)
+        requestIdleCallback(workLoop);
+      }
+    }
+
+    function preformUnitOfWork(work) {
+      work();
+    }
+  </script>
+</body>
+
+</html>
